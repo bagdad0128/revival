@@ -9,12 +9,8 @@ public class PlayerMovement : MonoBehaviour
     
     [Header("Jump Settings")]
     public float jumpForce = 12f;
-    public Transform groundCheck;
-    public Vector2 groundCheckSize = new (1, 1);
     public LayerMask groundLayer;
     public float fallMultiplier = 3f;
-    
-    private bool isGrounded = false;
     
     [Header("Attack Settings")]
     public bool isFacingRight = true;
@@ -32,13 +28,16 @@ public class PlayerMovement : MonoBehaviour
         dash = GetComponent<PlayerDash>();
     }
 
+    private void Update()
+    {
+        Move();
+    }
+
     void FixedUpdate()
     {
-        isGrounded = Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0, groundLayer); //overlapbox가 더 좋음ㅇㅇ
         if(dash.isDashing) return;
-        Move();
         ApplyBetterJump();
-        CheckTunneling();
+        // CheckTunneling();
     }
     
     void OnMove(InputValue value)
@@ -53,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
 
     void OnJump(InputValue value)
     {
-        if (value.isPressed && isGrounded)
+        if (value.isPressed && IsGrounded())
         {
             Jump();
         }
@@ -69,24 +68,27 @@ public class PlayerMovement : MonoBehaviour
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
     }
 
+    bool IsGrounded()
+    {
+        float rayDistance = 0.6f;
+        float sideOffset = 0.5f;
+
+        Vector2 centerOrigin = transform.position;
+        Vector2 leftOrigin = transform.position + (Vector3.left * sideOffset);
+        Vector2 rightOrigin = transform.position + (Vector3.right * sideOffset);
+
+        bool hitCenter = Physics2D.Raycast(centerOrigin, Vector2.down, rayDistance, groundLayer);
+        bool hitLeft = Physics2D.Raycast(leftOrigin, Vector2.down, rayDistance, groundLayer);
+        bool hitRight = Physics2D.Raycast(rightOrigin, Vector2.down, rayDistance, groundLayer);
+        
+        return hitCenter || hitLeft || hitRight;
+    }
+
     void ApplyBetterJump()
     {
         if (rb.linearVelocity.y < 0)
         {
             rb.linearVelocity += Vector2.up * (Physics2D.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime);
-        }
-    }
-
-    void CheckTunneling()
-    {
-        if(isGrounded || rb.linearVelocity.y < 0.01f) return;
-        float moveDistance = rb.linearVelocity.magnitude * Time.fixedDeltaTime;
-        Vector2 direction = rb.linearVelocity.normalized;
-        RaycastHit2D hit = Physics2D.BoxCast(transform.position, groundCheckSize, 0, direction, moveDistance, groundLayer);
-        if (hit.collider != null)
-        {
-            transform.position = hit.point + (hit.normal * (groundCheckSize.y / 2));
-            rb.linearVelocity = Vector2.zero;
         }
     }
 

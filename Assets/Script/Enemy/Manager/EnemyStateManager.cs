@@ -8,23 +8,23 @@ public class EnemyStateManager : MonoBehaviour
     public EnemyAttackingState AttackingState = new EnemyAttackingState();
     public EnemyIdlingState IdlingState = new EnemyIdlingState();
     
-    public Transform Player;
+    public Transform player;
 
-    public GameObject EffectPrefab;
+    public GameObject effectPrefab;
     
     public Rigidbody2D Rb;
 
     void Awake()
     {
         Rb = GetComponent<Rigidbody2D>();
-        GameObject player = GameObject.FindWithTag("Player");
-        if (player != null)
+        GameObject playerObject = GameObject.FindWithTag("Player");
+        if (player is not null)
         {
-            Player = player.transform;
+            player = playerObject.transform;
         }
-        if (EffectPrefab != null)
+        if (effectPrefab != null)
         {
-            EffectPrefab = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefab/NoticeEffect.prefab", typeof(GameObject));
+            effectPrefab = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefab/NoticeEffect.prefab", typeof(GameObject));
         }
     }
     

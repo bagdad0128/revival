@@ -11,7 +11,7 @@ public class EnemyAttackingState : EnemyBaseState
     
     public override void EnterState(EnemyStateManager enemy)
     {
-        pastPlayerPos = enemy.Player.transform;
+        pastPlayerPos = enemy.player.transform;
     }
 
     public override void UpdateState(EnemyStateManager enemy)
@@ -19,20 +19,20 @@ public class EnemyAttackingState : EnemyBaseState
         Timer += Time.deltaTime;
         if (Timer >= savePastPlayerPosTime)
         {
-            pastPlayerPos = enemy.Player.transform;
+            pastPlayerPos = enemy.player.transform;
         }
         
         reloadTimer += Time.deltaTime;
         if (reloadTimer >= reloadTime)
         {
-            if (enemy.EffectPrefab != null)
+            if (enemy.effectPrefab != null)
             {
-                Object.Instantiate(enemy.EffectPrefab, pastPlayerPos.position, enemy.transform.rotation);
+                Object.Instantiate(enemy.effectPrefab, pastPlayerPos.position, enemy.transform.rotation);
             }
             reloadTimer = 0;
         }
         
-        float distance = enemy.Player.position.x - enemy.transform.position.x;
+        float distance = enemy.player.position.x - enemy.transform.position.x;
         
         if (distance * distance >= 64)
         {

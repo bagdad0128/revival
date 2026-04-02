@@ -14,9 +14,9 @@ public class EnemyDetectingState : EnemyBaseState
 
     public override void UpdateState(EnemyStateManager enemy)
     {
-        if (enemy.Player != null)
+        if (enemy.player is not null)
         {
-            distance = enemy.Player.position.x - enemy.transform.position.x;
+            distance = enemy.player.position.x - enemy.transform.position.x;
 
             if (distance * distance >= 36f)
             {

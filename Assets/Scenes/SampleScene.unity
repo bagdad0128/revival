@@ -432,8 +432,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1d5056536f6ad64494ed8ecada2586e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStateManager
-  Player: {fileID: 0}
-  EffectPrefab: {fileID: 6563865603811197576, guid: 5f2fd00693db65241b2533bbc433e69a, type: 3}
+  player: {fileID: 0}
+  effectPrefab: {fileID: 0}
   Rb: {fileID: 0}
 --- !u!61 &137564264
 BoxCollider2D:
@@ -530,7 +530,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!212 &418671084
 SpriteRenderer:
@@ -621,8 +621,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   speed: 5
   jumpForce: 10
-  groundCheck: {fileID: 77702458}
-  groundCheckSize: {x: 1, y: 1}
   groundLayer:
     serializedVersion: 2
     m_Bits: 128
