@@ -37,7 +37,6 @@ public class PlayerDash : MonoBehaviour
         yield return new WaitForSeconds(dashTime);
         
         rb.gravityScale = originalGravity;
-        rb.linearVelocity = Vector2.zero;
         isDashing = false;
         
         yield return new WaitForSeconds(dashCooldown);

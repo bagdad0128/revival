@@ -30,14 +30,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if(dash is not null && dash.isDashing) return;
         Move();
     }
 
     void FixedUpdate()
     {
-        if(dash.isDashing) return;
         ApplyBetterJump();
-        // CheckTunneling();
     }
     
     void OnMove(InputValue value)
