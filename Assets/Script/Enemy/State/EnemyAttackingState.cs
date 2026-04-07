@@ -25,7 +25,7 @@ public class EnemyAttackingState : EnemyBaseState
         reloadTimer += Time.deltaTime;
         if (reloadTimer >= reloadTime)
         {
-            if (enemy.effectPrefab != null)
+            if (enemy.effectPrefab is not null)
             {
                 Object.Instantiate(enemy.effectPrefab, pastPlayerPos.position, enemy.transform.rotation);
             }

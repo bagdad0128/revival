@@ -38,7 +38,7 @@ public class EnemyIdlingState : EnemyBaseState
         Vector2 rayDirection = new Vector2(direction, 0);
         RaycastHit2D hit = Physics2D.Raycast(enemy.transform.position, rayDirection, detectionRange, playerLayerMask);
         
-        if (hit.collider != null)
+        if (hit.collider is not null)
         {
             if (hit.collider.CompareTag("Player"))
             {

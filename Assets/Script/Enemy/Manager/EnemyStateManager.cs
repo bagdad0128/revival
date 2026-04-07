@@ -22,7 +22,7 @@ public class EnemyStateManager : MonoBehaviour
         {
             player = playerObject.transform;
         }
-        if (effectPrefab != null)
+        if (effectPrefab is not null)
         {
             effectPrefab = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefab/NoticeEffect.prefab", typeof(GameObject));
         }
